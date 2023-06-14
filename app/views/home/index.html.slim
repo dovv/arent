@@ -1,0 +1,115 @@
+section#get-started.get-started.section-home
+  .row.justify-content-between
+    .col-lg-5.d-flex.align-items-center.mr-reset
+      .home-bg
+        = image_tag "contents/main_photo.svg"
+    .col-lg-7.content
+      - chart = [ \
+          {name: "a", data: [["06", 10], ["07", 9], ["08", 8], ["09", 8], ["10", 7], ["11", 6], ["12", 4], ['01', 4], ['02', 2], ['03', 2], ['04', 4], ['05', 2]]},
+          {name: "b", data: [["06", 7], ["07", 9], ["08", 3], ["09", 4], ["10", 6], ["11", 3], ["12", 5], ['01', 6], ['02', 3], ['03', 4], ['04', 5], ['05', 4]]}]
+      = line_chart chart
+
+section#constructions.dinner.mt-30
+  .container
+    .row.justify-content-between
+      .col-md-12.text-center.align-items-center
+        ul#pills-tab.nav.nav-pills.mb-3.list-inline.mx-auto.justify-content-center role="tablist"
+          li.nav-item role="presentation"
+            = link_to root_path('type': 'morning'), {'data-bs-toggle': 'pill', 'data-bs-target': '#morning', 'role': 'tab', "aria-controls": "pills-home", "aria-selected": "true", class: "active"}
+              = image_tag "icons/icon_morning.svg"
+          li.nav-item role="presentation"
+            = link_to root_path('type': 'lunch'), {'data-bs-toggle': 'pill', 'data-bs-target': '#lunch', 'role': 'tab', "aria-controls": "pills-home", "aria-selected": "true"}
+              = image_tag "icons/icon_lunch.svg"
+          li.nav-item role="presentation"
+            = link_to root_path('type': 'dinner'), {'data-bs-toggle': 'pill', 'data-bs-target': '#dinner', 'role': 'tab', "aria-controls": "pills-home", "aria-selected": "true"}
+              = image_tag "icons/icon_dinner.svg"
+          li.nav-item role="presentation"
+            = link_to root_path('type': 'snack'), {'data-bs-toggle': 'pill', 'data-bs-target': '#snack', 'role': 'tab', "aria-controls": "pills-home", "aria-selected": "true"}
+              = image_tag "icons/icon_snack.svg"
+
+      #pills-tabContent.tab-content
+        #morning.tab-pane.fade.show.active role="tabpanel" aria-labelledby="morning-tab"
+          .row.gy-4.portfolio-container
+            - more_ids = @mornings.limit(8).pluck(:id)
+            - new_mornings = @mornings.where.not(id: more_ids)
+
+            - @mornings.limit(8).each do |item|
+              .col-lg-3.col-md-6.portfolio-item.filter-remodeling
+                .portfolio-content.h-100
+                  = image_tag "#{item.img}", class: 'img-fluid', alt: "#{item.title}"
+                  .portfolio-info
+                    h4 = item.title
+          #new-morn.d-none
+            .row.gy-4
+              - new_mornings.each do |item|
+                .col-lg-3.col-md-6.portfolio-item.filter-remodeling
+                  .portfolio-content.h-100
+                    = image_tag "#{item.img}", class: 'img-fluid', alt: "#{item.title}"
+                    .portfolio-info
+                      h4 = item.title
+          .row.justify-content-between
+            .col-md-12.text-center.align-items-center
+              button#tbn-morn.btn-more 記録をもっと見る
+        #lunch.tab-pane.fade[role="tabpanel" aria-labelledby="lunch-tab"]
+          .row.gy-4.portfolio-container
+            - lunch_ids = @lunchs.limit(8).pluck(:id)
+            - new_lunchs = @lunchs.where.not(id: lunch_ids)
+            - @lunchs.limit(8).each do |item|
+              .col-lg-3.col-md-6.portfolio-item.filter-remodeling
+                .portfolio-content.h-100
+                  = image_tag "#{item.img}", class: 'img-fluid', alt: "#{item.title}"
+                  .portfolio-info
+                    h4 = item.title
+          #new-lunch.d-none
+            .row.gy-4
+              - new_lunchs.each do |item|
+                .col-lg-3.col-md-6.portfolio-item.filter-remodeling
+                  .portfolio-content.h-100
+                    = image_tag "#{item.img}", class: 'img-fluid', alt: "#{item.title}"
+                    .portfolio-info
+                      h4 = item.title
+          .row.justify-content-between
+            .col-md-12.text-center.align-items-center
+              button#tbn-lunch.btn-more 記録をもっと見る
+        #dinner.tab-pane.fade[role="tabpanel" aria-labelledby="dinner-tab"]
+          .row.gy-4.portfolio-container
+            - dinner_ids = @dinners.limit(8).pluck(:id)
+            - new_dinners = @dinners.where.not(id: dinner_ids)
+            - @dinners.limit(8).each do |item|
+              .col-lg-3.col-md-6.portfolio-item.filter-remodeling
+                .portfolio-content.h-100
+                  = image_tag "#{item.img}", class: 'img-fluid', alt: "#{item.title}"
+                  .portfolio-info
+                    h4 = item.title
+          #new-dinner.d-none
+            .row.gy-4.portfolio-container
+              - new_dinners.each do |item|
+                .col-lg-3.col-md-6.portfolio-item.filter-remodeling
+                  .portfolio-content.h-100
+                    = image_tag "#{item.img}", class: 'img-fluid', alt: "#{item.title}"
+                    .portfolio-info
+                      h4 = item.title
+          .row.justify-content-between
+            .col-md-12.text-center.align-items-center
+              button#tbn-dinner.btn-more 記録をもっと見る
+        #snack.tab-pane.fade[role="tabpanel" aria-labelledby="snack-tab"]
+          .row.gy-4.portfolio-container
+            - snack_ids =  @snacks.limit(8).pluck(:id)
+            - new_snacks = @snacks.where.not(id: snack_ids)
+            - @snacks.limit(8).each do |item|
+              .col-lg-3.col-md-6.portfolio-item.filter-remodeling
+                .portfolio-content.h-100
+                  = image_tag "#{item.img}", class: 'img-fluid', alt: "#{item.title}"
+                  .portfolio-info
+                    h4 = item.title
+            #new-snack.d-none
+              .row.gy-4.portfolio-container
+                - new_snacks.each do |item|
+                  .col-lg-3.col-md-6.portfolio-item.filter-remodeling
+                    .portfolio-content.h-100
+                      = image_tag "#{item.img}", class: 'img-fluid', alt: "#{item.title}"
+                      .portfolio-info
+                        h4 = item.title
+          .row.justify-content-between
+            .col-md-12.text-center.align-items-center
+              button#tbn-snack.btn-more 記録をもっと見る

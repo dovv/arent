@@ -1,0 +1,39 @@
+- titles = [ \
+  {title: 'RECOMMENDED COLUMN', desc: 'オススメ'},
+  {title: 'RECOMMENDED DIET', desc: 'ダイエット'},
+  {title: 'RECOMMENDED BEAUTY', desc: '美容'},
+  {title: 'RECOMMENDED HEALTH', desc: '健康'}]
+
+section.recomment
+  .container
+    .row
+      - titles.each do |item|
+        .col-lg-3
+          .item
+            h4 = item[:title]
+            hr
+            p = item[:desc]
+section#column.column
+  .container
+    .row.gy-4
+      - ids = @columns.limit(8).pluck(:id)
+      - new_columns = @columns.where.not(id: ids)
+      - @columns.limit(8).each do |item, i|
+        .col-lg-3.col-md-6
+          .item
+            = link_to "#", class: "" do
+              = image_tag "#{item.img}"
+            h4 = item.title
+            p.desc = item.description
+    #new-column.d-none style="margin-top: 10px;"
+      .row.gy-4
+        - new_columns.each do |column|
+          .col-lg-3.col-md-6
+            .item
+              = link_to "#", class: "" do
+                = image_tag "#{column.img}"
+              h4 = column.title
+              p.desc = column.description
+    .row.justify-content-between
+      .col-md-12.text-center.align-items-center
+        button.btn-more.mt-30 記録をもっと見る

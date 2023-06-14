@@ -1,0 +1,78 @@
+- datas = [ \
+    {title: 'BODY RECORD', id: '#record', desc: '自分のカラダの記録'},
+    {title: 'MY EXERCISE', id: '#exercise', desc: '自分の運動の記録'},
+    {title: 'MY DIARY', id: '#diary', desc: '自分の日記'}]
+
+section.my_reocde.mb-50.mt-30
+  .container
+    .row.justify-content-between
+      - datas.each do |item|
+        .col-lg-4
+          .item.item_1.align-items-center
+            = link_to "#{item[:title]}", "#{item[:id]}"
+            p = item[:desc]
+section#record.mb-50.mt-30
+  .container
+    .my_exercise.chart
+      .row
+        .col-md-1
+          | MY
+          br
+          | RECORD
+        .col-md-11
+          = Time.current.strftime('%Y.%m.%d')
+      .row
+        .col-md-12
+          / TODO:
+          - chart = [ \
+            {name: "a", data: [["06", 10], ["07", 9], ["08", 8], ["09", 8], ["10", 7], ["11", 6], ["12", 4], ['01', 4], ['02', 2], ['03', 2], ['04', 4], ['05', 2]]},
+            {name: "b", data: [["06", 7], ["07", 9], ["08", 3], ["09", 4], ["10", 6], ["11", 3], ["12", 5], ['01', 6], ['02', 3], ['03', 4], ['04', 5], ['05', 4]]}]
+          = line_chart chart
+section#exercise.mb-50
+  .container
+    .my_exercise
+      .row
+        .col-md-1
+          | MY
+          br
+          | EXERCISE
+        .col-md-11
+          = Time.current.strftime('%Y.%m.%d')
+      .row
+        .col-md-6
+          table
+            tbody
+              - @days.each do |item|
+                tr
+                  td.w-90
+                    p.desc = "● #{item.title}"
+                    p.kcal = "#{item.number}kcal"
+                  td.w-10
+                    p.time
+                      | 10 min
+        .col-md-6
+          table
+            tbody
+              - @weeks.each do |item|
+                tr
+                  td.w-90
+                    p.desc = "● #{item.title}"
+                    p.kcal = "#{item.number}kcal"
+                  td.w-10
+                    p.time = '10 min'
+      
+section#diary.dinner
+  .container
+    h3 MY DIARY
+    .row.gy-4
+      - @diaries.limit(8).each do |item|
+        .col-lg-3.col-md-6
+          .item
+            p.date.mb-0 = item.created_at.strftime('%Y.%m.%d')
+            p.hour = item.created_at.strftime('%H:%M')
+            h4 = item.title
+            p.desc = item.description
+
+    .row.justify-content-between
+      .col-md-12.text-center.align-items-center
+        button.btn-more.mt-30 記録をもっと見る

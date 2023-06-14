@@ -1,0 +1,41 @@
+header#header.header.d-flex.align-items-center
+  .container-fluid.container-xl.d-flex.align-items-center.justify-content-between
+    = link_to root_path, class: "logo d-flex align-items-center"
+      = image_tag 'logo.svg'
+    i.mobile-nav-toggle.mobile-nav-show.bi.bi-list
+    i.mobile-nav-toggle.mobile-nav-hide.d-none.bi.bi-x
+    nav#navbar.navbar
+      ul
+        li
+          = link_to root_path, class: "#{current_class?(root_path)}" do
+            = image_tag "icons/icon_memo.svg"
+            | 自分の記録
+        li
+          = link_to my_record_path, class: "#{current_class?(my_record_path)}" do
+            = image_tag "icons/icon_challenge.svg"
+            | チャレンジ
+        li
+          = link_to columns_path, class: "#{current_class?(columns_path)}" do
+            = image_tag "icons/icon_info.svg"
+            | お知らせ
+        li.dropdown
+          = image_tag "icons/icon_menu.svg"
+          ul
+            li
+              = link_to "自分の記録", root_path, class: ""
+            li
+              = link_to "体重グラフ", my_record_path, class: ""
+            li
+              = link_to "目標", "#", class: ""
+            li
+              = link_to "選択中のコース", "#", class: ""
+            li
+              = link_to "コラム一覧", columns_path, class: ""
+            li
+              = link_to "設定", "#", class: ""
+            - if current_user.present?
+              li
+                = link_to "ログアウト", destroy_user_session_path, method: :delete
+            - else
+              li
+                = link_to "Login", new_user_session_path
